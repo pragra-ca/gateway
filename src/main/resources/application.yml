@@ -1,0 +1,23 @@
+server:
+  port: 9000
+eureka:
+  client:
+    enabled: true
+    register-with-eureka: true
+    service-url:
+      defaultZone: http://localhost:8761/eureka/
+spring:
+  application:
+    name: gateway
+  cloud:
+    gateway:
+      routes:
+        - id: student
+          uri: lb://studentservice
+          predicates:
+            - Path=/student/**
+        - id: course
+          uri: lb://COURSESERVICE
+          predicates:
+            - Path=/course/**
+debug: true
